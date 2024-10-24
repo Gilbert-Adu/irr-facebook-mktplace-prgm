@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>iR&R</title>
+        <link rel="stylesheet" href="splash.css">
+    </head>
+
+    <body>
+        <div class="splashBody" id="splashBody">
+            <div class="splashScreen" id="splashScreen">
+              <div class="loadingContainer" id="loadingContainer">
+          
+                <div class="loadingBox" id="loadingBox">
+                  <img alt="logo" src="https://vignette.wikia.nocookie.net/borderlands/images/4/42/Vault_logo.png/revision/latest?cb=20100114181536" class="splashLogo">
+                  <div class="loadingBarContainer" id="loadingBarContainer">
+                    <div class="loadingbar" id="loadingBar"></div>
+                  </div>
+          
+                  <div class="loadingCircle" id="loadingCircle">
+                    <div class="circleOuter"></div>
+                    <div class="circleLoader"></div>
+                  </div>
+                </div>
+          
+          
+              </div>
+            </div>
+            <div class="splashBehind">
+                <div class="login-form-container">
+                    <iframe id="loginFrame" class="loginFrame" src="login.html" title="Login"></iframe> <!-- Embed the second HTML file -->
+
+                </div>
+              
+            </div>
+            <div class="splashBehindTwo">
+              
+            </div>
+          </div>
+          
+
+        <script type="text/javascript" src="/eel.js"></script>
+        <script>
+
+            let loadingBar = document.getElementById('loadingBar');
+            let loadingBox = document.getElementById('loadingBox');
+            let splashScreen = document.getElementById('splashScreen');
+            let loadingCircle = document.getElementById('loadingCircle');
+            let body = document.body;
+
+            let animation = {
+                delay: function(ms) {
+                    return new Promise(function(resolve) {
+                        setTimeout(resolve, ms);
+                    });
+                },
+                animate: function(el, properties, duration) {
+                    return new Promise(function(resolve) {
+                        el.style.transition = `all ${duration}ms ease`;
+
+                        Object.keys(properties).forEach(function(property) {
+                            el.style[property] = properties[property];
+                        });
+
+                        setTimeout(resolve, duration);
+                    });
+                }
+            };
+
+            window.onload = function() {
+                animation.delay(1500)
+                    .then(function() {
+
+                        animation.animate(loadingBar, {left: '0'}, 3000)
+                    })
+                    .then(function(){
+                        return animation.animate(loadingBox, {opacity: '1'}, 1000)
+                    })
+                    .then(function() {
+                        return animation.animate(splashScreen, {top: '-100%'}, 1500)
+                    })
+                    .then(function() {
+                        return animation.animate(loadingCircle, {opacity: '0'}, 500)
+                    })
+
+
+            }
+
+            /**
+             * loadingBar.delay(1500).animate({left: '0'}, 3000);
+            loadingBox.delay(500).animate({opacity: '1'}, 1000);
+            splashScreen.delay(4500).animate({top: '-100%'}, 1500);
+            loadingCircle.delay(4500).animate({opacity: '0'}, 500);
+            body.delay(5000).queue(function(){
+            body.addClass("visibleSplash");
+            });
+             * **/
+
+        </script>
+    </body>
+
+</html>
